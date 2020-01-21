@@ -16,12 +16,16 @@ def static_proxy(path):
   # send_static_file will guess the correct MIME type
   return app.send_static_file(path)
 
-@socketio.on('a')
+@socketio.on('sensor')
+def absoluteOrientationSensor(data):
+    print("\n"+ 'sensor: ' + str(data) + "\n\n")
+
+@socketio.on('keyboard')
 def test_message(message):
     print("\n\n"+ 'socket: ' + message + "\n")
-    emit('a', message)
-    pyautogui.press('a')
+    # emit('a', message)
+    # pyautogui.press('a')
+    pyautogui.typewrite(message)
 
 if __name__ == '__main__':
     socketio.run(app,host='0.0.0.0', port=443, debug=True, ssl_context='adhoc')
-

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <input type="text" v-model="message">
+    <button @click="socket.emit('keyboard', message)">send</button>
+    <br>
     <input v-model="turnedOn" type="checkbox" />
     {{ turnedOn }}
     <p>{{ error }}</p>
@@ -13,6 +16,7 @@ import io from "socket.io-client";
 export default {
   data() {
     return {
+      message: "",
       quaternion: 0,
       turnedOn: false,
       error: "no error",
@@ -25,14 +29,13 @@ export default {
     }
   },
   watch: {
-    turnedOn: function(val) {
-      if (val) {
-        this.socket.emit("a", 'helo');
+    quaternion: function(val) {
+      if (this.turnedOn) {
+        this.socket.emit("sensor", val);
       }
     }
   },
   created() {
-
     let sensor = new AbsoluteOrientationSensor();
 
     // sensor.addEventListener("reading", () => {
