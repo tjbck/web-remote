@@ -2,8 +2,14 @@ import pyautogui
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 
+from scipy.spatial.transform import Rotation as R
+
 app = Flask(__name__, static_url_path='/static')
 app.config['SECRET_KEY'] = 'secret!'
+
+import logging
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 socketio = SocketIO(app)
 
@@ -18,7 +24,8 @@ def static_proxy(path):
 
 @socketio.on('sensor')
 def absoluteOrientationSensor(data):
-    print("\n"+ 'sensor: ' + str(data) + "\n\n")
+    r = R.from_quat([float(i) for i in data])
+    print("\n"+ 'sensor: ' + str(r.as_matrix()) + "\n\n")
 
 @socketio.on('keyboard')
 def test_message(message):
