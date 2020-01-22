@@ -1,7 +1,7 @@
 const express = require('express')
-const fs = require('fs');
+// const fs = require('fs');
 const path = require('path');
-// const history = require('connect-history-api-fallback');
+const history = require('connect-history-api-fallback');
 const moment = require('moment');
 
 const app = express();
@@ -17,6 +17,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, '../dist')));
 
 const io = require('socket.io').listen(server);
+require('./sockets/control.js')(io)
 
 // require('./sockets/blackjack.js')(io)
 // app.use('/api/members', require('./routes/api/members'))
