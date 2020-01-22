@@ -1,33 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/acc">Accelerometer</router-link> |
-      <router-link to="/gyro">Gyroscope</router-link> |
-      <router-link to="/lin">LinearAccelerationSensor</router-link>
+    <div>
+      <!-- As a link -->
+      <b-navbar type="dark" variant="dark">
+        <b-navbar-brand href="/">webremote™</b-navbar-brand>
+      </b-navbar>
     </div>
-    <router-view/>
+    <!-- <div id="nav">
+      <router-link to="/">Home</router-link>|
+      <router-link to="/acc">Accelerometer</router-link>|
+      <router-link to="/gyro">Gyroscope</router-link>|
+      <router-link to="/lin">LinearAccelerationSensor</router-link>
+    </div>-->
+    <b-container class="bv-example-row">
+      <b-row class="justify-content-md-center">
+        <b-col style="margin-top: 20px">
+          <router-view />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

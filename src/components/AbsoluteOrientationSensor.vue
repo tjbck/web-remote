@@ -1,12 +1,40 @@
 <template>
-  <div>
-    <input type="text" v-model="message">
-    <button @click="socket.emit('keyboard', message)">send</button>
-    <br>
-    <input v-model="turnedOn" type="checkbox" />
-    {{ turnedOn }}
-    <p>{{ error }}</p>
-    <p>{{ quaternion }}</p>
+  <div class="AbsoluteOrientation">
+    <div v-if="!entered">
+      <b-form inline>
+        <b-input-group prepend="IP Address">
+          <b-input type="text" v-model="ip"></b-input>
+          <div class="input-group-append">
+            <b-button @click="entered = true" variant="success">Connect</b-button>
+          </div>
+        </b-input-group>
+      </b-form>
+    </div>
+
+    <div v-else>
+      <b-form inline>
+        <b-input-group prepend="Message">
+          <b-input type="text" v-model="message"></b-input>
+          <div class="input-group-append">
+            <b-button @click="socket.emit('keyboard', message)" variant="success">Send</b-button>
+          </div>
+        </b-input-group>
+      </b-form>
+      <br />
+
+      <div v-if="!error">
+        <b-input-group size="lg" prepend="Switch" class="mb-2">
+          <b-input-group-append is-text>
+            <b-form-checkbox v-model="turnedOn" switch class="mr-n2" />
+          </b-input-group-append>
+        </b-input-group>
+        <em>{{ quaternion }}</em>
+      </div>
+
+      <div v-else>
+        <b-alert show variant="warning">{{ error }}</b-alert>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,9 +46,12 @@ export default {
     return {
       message: "",
       quaternion: 0,
+      entered: false,
       turnedOn: false,
-      error: "no error",
-      socket: io.connect("https://192.168.0.12/")
+      error: false,
+      ip: window.location.hostname,
+      socket: ""
+      // socket: io.connect("//192.168.0.12/")
     };
   },
   methods: {
@@ -29,6 +60,11 @@ export default {
     }
   },
   watch: {
+    entered: function(val) {
+      if (val) {
+        this.socket = io.connect("//" + this.ip + "/");
+      }
+    },
     quaternion: function(val) {
       if (this.turnedOn) {
         this.socket.emit("sensor", val);
@@ -45,6 +81,7 @@ export default {
 
     sensor.start();
     sensor.onreading = () => {
+      // this.quaternion = sensor.quaternion;
       this.quaternion = sensor.quaternion.map(e => e.toFixed(3));
     };
 
