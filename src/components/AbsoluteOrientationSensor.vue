@@ -72,7 +72,8 @@ export default {
     }
   },
   created() {
-    let sensor = new AbsoluteOrientationSensor();
+    const options = {referenceFrame: 'device'};
+    let sensor = new AbsoluteOrientationSensor(options);
 
     // sensor.addEventListener("reading", () => {
     //   // model is a Three.js object instantiated elsewhere.
@@ -82,7 +83,7 @@ export default {
     sensor.start();
     sensor.onreading = () => {
       // this.quaternion = sensor.quaternion;
-      this.quaternion = sensor.quaternion.map(e => e.toFixed(3));
+      this.quaternion = sensor.quaternion.map(e => e.toFixed(6));
     };
 
     sensor.onerror = event => (this.error = event.error);

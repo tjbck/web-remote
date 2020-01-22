@@ -1,4 +1,3 @@
-import pyautogui
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 
@@ -48,11 +47,8 @@ def absoluteOrientationSensor(data):
 @socketio.on('keyboard')
 def test_message(message):
     print("\n"+ 'socket: ' + message + "\n")
-    # emit('a', message)
-    # pyautogui.press('a')
-    # pyautogui.typewrite(message)
 
 if __name__ == '__main__':
-    socketio.run(app,host='0.0.0.0', port=443, debug=True, ssl_context='adhoc')
-    # socketio.run(app,host='0.0.0.0', port=80, debug=True)
+    # socketio.run(app,host='0.0.0.0', port=443, debug=True, ssl_context='adhoc')
+    socketio.run(app,host='0.0.0.0', port=3000, debug=True)
 
