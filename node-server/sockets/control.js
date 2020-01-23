@@ -23,6 +23,11 @@ module.exports = function(io){
             control.in(data.room).emit('pressed', data.val)
         });
 
+        socket.on('released', function (data) {
+            console.log('released: ' + data.val)
+            control.in(data.room).emit('released', data.val)
+        });
+
         socket.on('sensor', function (data) {
             console.log('sensor: ' + data.val)
             control.in(data.room).emit('sensor', data.val)

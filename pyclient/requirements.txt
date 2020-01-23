@@ -1,0 +1,3 @@
+PyAutoGUI==0.9.42
+scipy==1.4.1
+gevent_socketio==0.3.6
