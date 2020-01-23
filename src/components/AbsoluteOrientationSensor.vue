@@ -13,10 +13,30 @@
     </div>
 
     <div v-else>
-      <p class="lead">
-        room #:
-        <strong>{{ room }}</strong>
-      </p>
+      <b-container class="bv-example-row">
+        <b-row>
+          <b-col>
+            <p class="lead" inline>
+              room #:
+              <strong>{{ room }}</strong>
+            </p>
+          </b-col>
+          <b-col>
+            <div v-if="!error" class="float-right">
+              <b-input-group prepend="Sensor" class="mb-2" inline>
+                <b-input-group-append is-text>
+                  <b-form-checkbox v-model="turnedOn" switch class="mr-n2" />
+                </b-input-group-append>
+              </b-input-group>
+              <!-- <em>{{ quaternion }}</em> -->
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+
+      <div v-if="error">
+        <b-alert show variant="warning">{{ error }}</b-alert>
+      </div>
       <b-button block variant="primary" @click="clientQuit()">QUIT</b-button>
       <br />
       <b-form @submit.prevent @keyup.enter="sendMsg()" inline>
@@ -58,19 +78,6 @@
 
       <br />
 
-      <div v-if="!error">
-        <b-input-group size="lg" prepend="Switch" class="mb-2">
-          <b-input-group-append is-text>
-            <b-form-checkbox v-model="turnedOn" switch class="mr-n2" />
-          </b-input-group-append>
-        </b-input-group>
-        <em>{{ quaternion }}</em>
-      </div>
-
-      <div v-else>
-        <b-alert show variant="warning">{{ error }}</b-alert>
-      </div>
-
       <!-- <b-list-group>
         <b-list-group-item @touchstart="pressed('x')" @touchend="pressed('x')"> Cras justo odio</b-list-group-item>
         <b-list-group-item @touchstart="pressed('y')" @touchend="pressed('y')"> Cras justo odio</b-list-group-item>
@@ -99,7 +106,7 @@
           <b-button pill @touchstart="pressed('b')" @touchend="released('b')">B</b-button>
         </b-button-group>
       </b-button-group>
-      <br /> -->
+      <br />-->
 
       <!-- <b-button-group>
         <b-button-group vertical>
@@ -142,6 +149,8 @@
           <b-button pill @click="pressed('b')">B</b-button>
         </b-button-group>
       </b-button-group>-->
+
+      <em>{{ quaternion }}</em>
     </div>
   </div>
 </template>

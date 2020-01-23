@@ -6,10 +6,10 @@ from keys import PressKey,ReleaseKey,X,Y,A,B,UP,DOWN,LEFT,RIGHT
 
 # standard Python
 sio = socketio.Client()
-url = 'http://localhost:3000'
-# url = 'https://circkle.me'
+# url = 'http://localhost:3000'
+url = 'https://circkle.me'
 
-room = '84'
+room = '928'
 
 sio.connect(url)
 
