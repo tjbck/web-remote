@@ -9,7 +9,7 @@ sio = socketio.Client()
 # url = 'http://localhost:3000'
 url = 'https://circkle.me'
 
-room = '928'
+room = '618'
 
 sio.connect(url)
 

@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '/front/dist')));
 
 const io = require('socket.io').listen(server);
 require('./sockets/control.js')(io)
