@@ -12,7 +12,7 @@
       <router-link to="/gyro">Gyroscope</router-link>|
       <router-link to="/lin">LinearAccelerationSensor</router-link>
     </div>-->
-    <b-container class="bv-example-row">
+    <b-container>
       <b-row class="justify-content-md-center">
         <b-col style="margin-top: 20px">
           <router-view />

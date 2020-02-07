@@ -6,10 +6,9 @@ from keys import PressKey,ReleaseKey,X,Y,A,B,UP,DOWN,LEFT,RIGHT
 
 # standard Python
 sio = socketio.Client()
-# url = 'http://localhost:3000'
-url = 'https://circkle.me'
 
-room = '618'
+url = 'https://web-remote.herokuapp.com'
+room = '815'
 
 sio.connect(url)
 

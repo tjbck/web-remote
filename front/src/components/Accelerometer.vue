@@ -1,32 +1,45 @@
 <template>
   <div>
-    <p>{{ error }}</p>
-    <p>Acceleration along X-axis: {{ x }}</p>
-    <p>Acceleration along Y-axis: {{ y }}</p>
-    <p>Acceleration along Z-axis: {{ z }}</p>
+    <div v-if="!error" class="float-right">
+      <b-input-group prepend="ACC" class="mb-2" inline>
+        <b-input-group-append is-text>
+          <b-form-checkbox v-model="sensorOn" switch class="mr-n2" />
+        </b-input-group-append>
+      </b-input-group>
+    </div>
+    <div v-if="error">
+      <b-alert show variant="warning">ACC: {{ error }}</b-alert>
+    </div>
+    <p>{{sensor}}</p>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    socket: null,
+    room: String
+  },
   data() {
     return {
-      x: 0,
-      y: 0,
-      z: 0,
-      error: "no error"
+      sensor: [],
+      sensorOn: false,
+      error: false
     };
+  },
+  watch: {
+    sensor: function(val) {
+      if (this.sensorOn) {
+        this.socket.emit("sensor", { room: this.room, val: val });
+      }
+    }
   },
   created() {
     let sensor = new Accelerometer();
     sensor.start();
-
     sensor.onreading = () => {
-      this.x = sensor.x;
-      this.y = sensor.y;
-      this.z = sensor.z;
+      this.sensor = [sensor.x, sensor.y, sensor.z];
     };
-
     sensor.onerror = event => (this.error = event.error);
   }
 };
