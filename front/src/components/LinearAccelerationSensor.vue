@@ -30,7 +30,7 @@ export default {
   watch: {
     sensor: function(val) {
       if (this.sensorOn) {
-        this.socket.emit("sensor", { room: this.room, val: val });
+        this.socket.emit("sensor", { room: this.room, type: 'las', val: val });
       }
     }
   },

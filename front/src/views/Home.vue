@@ -34,7 +34,8 @@
           </b-container>
 
           <br />
-          <b-button block variant="primary" @click="clientQuit()">QUIT</b-button>
+          <b-button block variant="primary" @click="cmd('quit')">QUIT</b-button>
+          <b-button block variant="primary" @click="cmd('calibrate')">CALIBRATE</b-button>
           <br />
 
           <b-container class="bv-example-row">
@@ -118,8 +119,8 @@ export default {
     };
   },
   methods: {
-    clientQuit: function() {
-      this.socket.emit("message", { room: this.room, val: "quit" });
+    cmd: function(command) {
+      this.socket.emit("cmd", { room: this.room, val: command });
     },
     sendMsg: function() {
       this.socket.emit("message", { room: this.room, val: this.message });

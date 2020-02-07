@@ -8,20 +8,31 @@ from keys import PressKey,ReleaseKey,X,Y,A,B,UP,DOWN,LEFT,RIGHT
 sio = socketio.Client()
 
 url = 'https://web-remote.herokuapp.com'
-room = '815'
+room = '435'
+z = 0
 
 sio.connect(url)
-
 print('my sid is', sio.sid)
 sio.emit('join', {'room': room})
+        
+@sio.on('cmd')
+def on_cmd(data):
+    global z
+    if(data == "quit"):
+        sio.disconnect()
+    elif(data == "calibrate"):
+        z = 0
+
+@sio.on('sensor')
+def on_sensor(data):
+    global z
+    z += data.val[2]
+    print('z: ' + str(z) + "\n")
 
 @sio.on('message')
 def on_message(data):
-    if(data == "quit"):
-        sio.disconnect()
-    else:
-        print('socket: ' + data + "\n")
-        pyautogui.typewrite(data)
+    print('socket: ' + data + "\n")
+    pyautogui.typewrite(data)
 
 @sio.on('pressed')
 def on_pressed(data):
@@ -43,7 +54,6 @@ def on_pressed(data):
     elif(data == "right"):
         PressKey(RIGHT)
 
-
 @sio.on('released')
 def on_released(data):
     print("\n"+ 'released: ' + str(data) + "\n")
@@ -64,7 +74,6 @@ def on_released(data):
     elif(data == "right"):
         ReleaseKey(RIGHT)
 
-@sio.on('sensor')
 def absoluteOrientationSensor(data):
     r = R.from_quat([float(i) for i in data])
     euler = r.as_euler('zyx', degrees=True).tolist()

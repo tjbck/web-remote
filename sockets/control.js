@@ -18,6 +18,11 @@ module.exports = function(io){
             control.in(data.room).emit('message', data.val)
         });
 
+        socket.on('cmd', function (data) {
+            console.log('cmd: ' + data.val)
+            control.in(data.room).emit('cmd', data.val)
+        });
+
         socket.on('pressed', function (data) {
             console.log('pressed: ' + data.val)
             control.in(data.room).emit('pressed', data.val)
@@ -29,8 +34,8 @@ module.exports = function(io){
         });
 
         socket.on('sensor', function (data) {
-            console.log('sensor: ' + data.val)
-            control.in(data.room).emit('sensor', data.val)
+            console.log('sensor: ' + data.val + ' Type: ' + data.type)
+            control.in(data.room).emit('sensor', {type: data.type, val: data.val})
         });
     
         socket.on('disconnect', function () {

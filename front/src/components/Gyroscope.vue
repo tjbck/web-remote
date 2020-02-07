@@ -1,14 +1,14 @@
 <template>
   <div>
     <div v-if="!error" class="float-right">
-      <b-input-group prepend="GRYO" class="mb-2" inline>
+      <b-input-group prepend="GYRO" class="mb-2" inline>
         <b-input-group-append is-text>
           <b-form-checkbox v-model="sensorOn" switch class="mr-n2" />
         </b-input-group-append>
       </b-input-group>
     </div>
     <div v-if="error">
-      <b-alert show variant="warning">GRYO: {{ error }}</b-alert>
+      <b-alert show variant="warning">GYRO: {{ error }}</b-alert>
     </div>
     <p>{{sensor}}</p>
   </div>
@@ -30,7 +30,7 @@ export default {
   watch: {
     sensor: function(val) {
       if (this.sensorOn) {
-        this.socket.emit("sensor", { room: this.room, val: val });
+        this.socket.emit("sensor", { room: this.room, type: 'gyro', val: val });
       }
     }
   },

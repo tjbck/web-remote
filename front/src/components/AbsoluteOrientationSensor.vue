@@ -35,7 +35,7 @@ export default {
   watch: {
     quaternion: function(val) {
       if (this.senserOn) {
-        this.socket.emit("sensor", { room: this.room, val: val });
+        this.socket.emit("sensor", { room: this.room, type: 'aos', val: val });
       }
     }
   },
