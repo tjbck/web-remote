@@ -2,12 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
-import Accelerometer from '@/views/Accelerometer.vue'
-import Gyroscope from '@/views/Gyroscope.vue'
-import LinearAccelerationSensor from '@/views/LinearAccelerationSensor.vue'
-import AbsoluteOrientationSensor from '@/views/AbsoluteOrientationSensor.vue'
-
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,26 +9,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
-  },
-  {
-    path: '/acc',
-    name: 'acc',
-    component: Accelerometer
-  },
-  {
-    path: '/gyro',
-    name: 'gyro',
-    component: Gyroscope
-  },
-  {
-    path: '/lin',
-    name: 'lin',
-    component: LinearAccelerationSensor
-  },
-  {
-    path: '/aos',
-    name: 'aos',
-    component: AbsoluteOrientationSensor
   },
   {
     path: '/about',

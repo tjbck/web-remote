@@ -30,7 +30,7 @@ export default {
   watch: {
     sensor: function(val) {
       if (this.sensorOn) {
-        this.socket.emit("sensor", { room: this.room, type: 'acc', val: val });
+        this.socket.emit("sensor", { room: this.room, type: "acc", val: val });
       }
     }
   },
@@ -38,7 +38,11 @@ export default {
     let sensor = new Accelerometer();
     sensor.start();
     sensor.onreading = () => {
-      this.sensor = [sensor.x, sensor.y, sensor.z];
+      this.sensor = [
+        sensor.x.toFixed(2),
+        sensor.y.toFixed(2),
+        sensor.z.toFixed(2)
+      ];
     };
     sensor.onerror = event => (this.error = event.error);
   }
