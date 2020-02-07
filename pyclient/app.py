@@ -26,7 +26,7 @@ def on_cmd(data):
 @sio.on('sensor')
 def on_sensor(data):
     global z
-    z += data.val[2]
+    z += data['val'][2]
     print('z: ' + str(z) + "\n")
 
 @sio.on('message')

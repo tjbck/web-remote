@@ -35,7 +35,7 @@ module.exports = function(io){
 
         socket.on('sensor', function (data) {
             console.log('sensor: ' + data.val + ' Type: ' + data.type)
-            control.in(data.room).emit('sensor', {type: data.type, val: data.val})
+            control.in(data.room).emit(data.type, data.val)
         });
     
         socket.on('disconnect', function () {
